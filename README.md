@@ -2,6 +2,14 @@
 
 Enables creation of data grid applications in AngularJS.
 
+> Note: This is a fork of the original [ngHandsontable](https://github.com/handsontable/ngHandsontable), created to allow us to expand and customize the functionality as needed.
+
+Notable changes from the original:
+- uses `$parse` to parse the value of the `datarows` attribute, which is much more robust and also allows for sorting and filtering the options (very similar to ngRepeat)
+- deep watch on the row object so that if the options change the dropdowns will be update accordingly
+- `autocompleteFactory` now receives the entire `scope` object in order to support the above
+
+
 ## Demo
 
 See the demo at http://handsontable.github.io/ngHandsontable
