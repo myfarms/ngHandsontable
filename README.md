@@ -12,7 +12,7 @@ Notable changes from the original:
 
 ## Demo
 
-See the demo at http://handsontable.github.io/ngHandsontable
+See a demo of the original at http://handsontable.github.io/ngHandsontable
 
 ## Usage
 
