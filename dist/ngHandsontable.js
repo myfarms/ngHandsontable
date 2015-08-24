@@ -5,7 +5,7 @@
  * Copyright 2015 Handsoncode sp. z o.o. <hello@handsontable.com>
  * Licensed under the MIT license.
  * https://github.com/handsontable/ngHandsontable
- * Date: Mon Jul 13 2015 20:04:20 GMT+0200 (CEST)
+ * Date: Mon Aug 24 2015 17:08:44 GMT-0400 (EDT)
 */
 
 if (document.all && !document.addEventListener) { // IE 8 and lower
@@ -104,37 +104,44 @@ angular.module('ngHandsontable.services', [])
   ]
 )
   .factory('autoCompleteFactory', [
-    function () {
+    '$parse',
+    function ($parse) {
       return {
-        parseAutoComplete: function (instance, column, dataSet, propertyOnly) {
+        parseAutoComplete: function (scope, i) {
+          var column = scope.htSettings.columns[i];
           column.source = function (query, process) {
-            var row = instance.getSelected()[0];
-            var source = [];
-            var data = dataSet[row];
-
+            var row = scope.hotInstance.getSelected()[0];
+            var data = scope.datarows[row];
             if (data) {
               var options = column.optionList;
               if (options.object) {
                 if (angular.isArray(options.object)) {
-                  source = options.object;
+                  process(options.object);
                 } else {
-                  var objKeys = options.object.split('.')
-                    , paramObject = data;
-
-                  while (objKeys.length > 0) {
-                    var key = objKeys.shift();
-                    paramObject = paramObject[key];
-                  }
-
-                  if (propertyOnly) {
-                    for (var i = 0, length = paramObject.length; i < length; i++) {
-                      source.push(paramObject[i][options.property]);
-                    }
-                  } else {
-                    source = paramObject;
-                  }
+                  // I would normally just pass the string into $watchCollection,
+                  // but using the result of $parse allows us to evaluate the
+                  // expression against the row object, which is the only way to
+                  // parse the options correctly. ($parse supports filtering,
+                  // just like $watchCollection - $watchCollection actually uses
+                  // $parse behind the scenes.)
+                  var parsedExpr = $parse(options.object);
+                  scope.$watch('datarows['+row+']',
+                    function (datarow) {
+                      var collection = parsedExpr(datarow);
+                      var source = [];
+                      if (collection && collection.length) {
+                        for (var j = 0; j < collection.length; j++) {
+                          item = collection[j][options.property];
+                          if (item) {
+                            source.push(item);
+                          }
+                        }
+                      }
+                      process(source);
+                    },
+                    true // deep watch to pick up changes to options
+                  );
                 }
-                process(source);
               }
             }
           };
@@ -188,7 +195,7 @@ angular.module('ngHandsontable.directives', [])
               if (scope.htSettings.columns[i].type == 'autocomplete') {
                 if(typeof scope.htSettings.columns[i].optionList === 'string'){
                   var optionList = {};
-                  var match = scope.htSettings.columns[i].optionList.match(/^\s*(.+)\s+in\s+(.*)\s*$/);
+                  var match = scope.htSettings.columns[i].optionList.match(/^\s*([\s\S]+?)\s+in\s+([\s\S]+?)\s*$/);
                   if (match) {
                     optionList.property = match[1];
                     optionList.object = match[2];
@@ -198,7 +205,8 @@ angular.module('ngHandsontable.directives', [])
                   scope.htSettings.columns[i].optionList = optionList;
                 }
 
-                autoCompleteFactory.parseAutoComplete(scope.hotInstance, scope.htSettings.columns[i], scope.datarows, true);
+                // create the autocomplete options
+                autoCompleteFactory.parseAutoComplete(scope, i);
               }
             }
             scope.hotInstance.updateSettings(scope.htSettings);
