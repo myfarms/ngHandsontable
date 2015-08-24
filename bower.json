@@ -7,10 +7,10 @@
   },
   "homepage": "https://github.com/handsontable/ngHandsontable",
   "authors": [
-    "Handsoncode",
-    "Handsoncode <hello@handsontable.com>"
+    "Handsoncode <hello@handsontable.com>",
+    "MyFarms"
   ],
-  "description": "AngularJS directive for Handsontable",
+  "description": "AngularJS directive for Handsontable (customized)",
   "main": "dist/ngHandsontable.js",
   "keywords": [
     "angular",
