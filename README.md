@@ -6,7 +6,7 @@ Enables creation of data grid applications in AngularJS.
 
 Notable changes from the original:
 - uses `$parse` to parse the value of the `datarows` attribute, which is much more robust and also allows for sorting and filtering the options (very similar to ngRepeat)
-- deep watch on the row object so that if the options change the dropdowns will be update accordingly
+- deep watch on the row object so that if the options change the dropdowns will be updated accordingly
 - `autocompleteFactory` now receives the entire `scope` object in order to support the above
 
 
