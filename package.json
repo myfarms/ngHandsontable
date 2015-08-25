@@ -1,11 +1,11 @@
 {
-  "name": "ngHandsontable",
-  "description": "AngularJS directive for Handsontable",
-  "homepage": "https://github.com/handsontable/ngHandsontable",
+  "name": "myfarms-nghandsontable",
+  "description": "AngularJS directive for Handsontable (customized)",
+  "homepage": "https://github.com/myfarms/ngHandsontable",
   "bugs": {
-    "url": "https://github.com/handsontable/ngHandsontable"
+    "url": "https://github.com/myfarms/ngHandsontable/issues"
   },
-  "author": "Marcin Warpechowski <hello@handsontable.com>",
+  "author": "Sean Knutson <sean.knutson@myfarms.com>",
   "version": "0.6.1",
   "devDependencies": {
     "grunt": "~0.4.5",
