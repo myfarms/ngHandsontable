@@ -1,11 +1,11 @@
 /**
- * ngHandsontable 0.6.0
+ * myfarms-nghandsontable 0.6.1
  * 
  * Copyright 2012-2015 Marcin Warpechowski
  * Copyright 2015 Handsoncode sp. z o.o. <hello@handsontable.com>
  * Licensed under the MIT license.
  * https://github.com/handsontable/ngHandsontable
- * Date: Mon Aug 24 2015 17:08:44 GMT-0400 (EDT)
+ * Date: Mon Aug 24 2015 20:40:47 GMT-0400 (EDT)
 */
 
 if (document.all && !document.addEventListener) { // IE 8 and lower
