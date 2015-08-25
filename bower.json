@@ -8,8 +8,8 @@
   "homepage": "https://github.com/handsontable/ngHandsontable",
   "authors": [
     "Handsoncode <hello@handsontable.com>",
-    "MyFarms",
-    "Sean Knutson <sean.knutson@myfarms.com>",
+    "MyFarms, LLC",
+    "Sean Knutson <sean.knutson@myfarms.com>"
   ],
   "description": "AngularJS directive for Handsontable (customized)",
   "main": "dist/ngHandsontable.js",
