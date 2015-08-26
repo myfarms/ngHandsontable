@@ -1,11 +1,11 @@
 /**
- * myfarms-nghandsontable 0.6.1
+ * myfarms-nghandsontable 0.6.3
  * 
  * Copyright 2012-2015 Marcin Warpechowski
  * Copyright 2015 Handsoncode sp. z o.o. <hello@handsontable.com>
  * Licensed under the MIT license.
  * https://github.com/handsontable/ngHandsontable
- * Date: Mon Aug 24 2015 20:40:47 GMT-0400 (EDT)
+ * Date: Wed Aug 26 2015 15:09:46 GMT-0400 (EDT)
 */
 
 if (document.all && !document.addEventListener) { // IE 8 and lower
@@ -125,20 +125,31 @@ angular.module('ngHandsontable.services', [])
                   // just like $watchCollection - $watchCollection actually uses
                   // $parse behind the scenes.)
                   var parsedExpr = $parse(options.object);
-                  scope.$watch('datarows['+row+']',
-                    function (datarow) {
-                      var collection = parsedExpr(datarow);
-                      var source = [];
-                      if (collection && collection.length) {
-                        for (var j = 0; j < collection.length; j++) {
-                          item = collection[j][options.property];
-                          if (item) {
-                            source.push(item);
-                          }
+
+                  var updateOptions = function (datarow) {
+                    var collection = parsedExpr(datarow);
+                    var source = [];
+                    if (collection && collection.length) {
+                      for (var j = 0; j < collection.length; j++) {
+                        item = collection[j][options.property];
+                        if (item) {
+                          source.push(item);
                         }
                       }
-                      process(source);
-                    },
+                    }
+                    process(source);
+                  };
+
+                  // set initial options
+                  // We have to call this function manually first. If we depend
+                  // on $watch to initialize the options, it will wait until
+                  // the end of the current execution stack to run it and thus
+                  // cause the autocomplete to be rendered without the options
+                  // the first time.
+                  updateOptions(data);
+
+                  scope.$watch('datarows['+row+']',
+                    updateOptions,
                     true // deep watch to pick up changes to options
                   );
                 }
