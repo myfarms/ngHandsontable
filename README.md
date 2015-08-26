@@ -14,6 +14,13 @@ Notable changes from the original:
 
 See a demo of the original at http://handsontable.github.io/ngHandsontable
 
+## Installation
+
+Using [Bower](http://bower.io/):
+```bash
+bower install --save myfarms-nghandsontable
+```
+
 ## Usage
 
 Include the library files:
