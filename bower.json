@@ -1,5 +1,5 @@
 {
-  "name": "ngHandsontable",
+  "name": "myfarms-nghandsontable",
   "version": "0.6.3",
   "dependencies": {
     "angular": "~1.4",
