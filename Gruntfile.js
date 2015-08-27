@@ -23,7 +23,7 @@ module.exports = function (grunt) {
     ' * Copyright 2012-2015 Marcin Warpechowski\n' +
     ' * Copyright 2015 Handsoncode sp. z o.o. <hello@handsontable.com>\n' +
     ' * Licensed under the MIT license.\n' +
-    ' * https://github.com/handsontable/ngHandsontable\n' +
+    ' * https://github.com/myfarms/ngHandsontable\n' +
     ' * Date: <%= (new Date()).toString() %>\n' +
     '*/\n\n';
 
